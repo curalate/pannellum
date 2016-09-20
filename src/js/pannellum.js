@@ -1283,6 +1283,8 @@ function render() {
             compass.style.webkitTransform = 'rotate(' + (-config.yaw - config.northOffset) + 'deg)';
         }
     }
+
+    fireEvent('render');
 }
 
 /**
