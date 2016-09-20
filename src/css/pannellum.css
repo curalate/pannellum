@@ -7,7 +7,7 @@
     width: 100%;
     height: 100%;
     font-family: Helvetica, "Nimbus Sans L", "Liberation Sans", Arial, sans-serif;
-    background: #f4f4f4 url('img/background.svg') repeat;
+    /*background: #f4f4f4;*/
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -50,7 +50,7 @@
 
 .pnlm-render-container {
     cursor: inherit;
-    
+
     /* Fix display bug in Safari 7 */
     position: absolute;
     height: 100%;
@@ -59,26 +59,26 @@
 
 .pnlm-controls {
     margin-top: 4px;
-    background-color: #fff;
-    border: 1px solid #999;
-    border-color: rgba(0,0,0,0.4);
-    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #fff;
+    border-color: rgba(255, 255, 255, 1);
+    border-radius: 4px;
     cursor: pointer;
-    z-index: 2;
+    z-index: 100;
     /* Fix Safari fullscreen bug */
     -webkit-transform: translateZ(9999px);
     transform: translateZ(9999px);
 }
 
-.pnlm-control:hover {
+/*.pnlm-control:hover {
     background-color: #f8f8f8;
-}
+}*/
 
 .pnlm-controls-container {
     position: absolute;
-    top: 0;
-    left: 4px;
-    z-index: 1;
+    top: 8px;
+    left: 12px;
+    z-index: 100;
 }
 
 .pnlm-zoom-controls {
@@ -92,6 +92,7 @@
     position: absolute;
     top: 0;
     border-radius: 3px 3px 0 0;
+    z-index: 10000;
 }
 
 .pnlm-zoom-out {
@@ -103,31 +104,13 @@
     border-top: 1px solid #ddd;
     border-top-color: rgba(0,0,0,0.10);
     border-radius: 0 0 3px 3px;
+    z-index: 10000;
 }
 
-.pnlm-fullscreen-toggle-button, .pnlm-orientation-button, .pnlm-hot-spot-debug-indicator {
+.pnlm-fullscreen-toggle-button, .pnlm-orientation-button {
     width: 26px;
     height: 26px;
-}
-
-.pnlm-hot-spot-debug-indicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 26px;
-    height: 26px;
-    margin: -13px 0 0 -13px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 13px;
-    display: none;
-}
-
-.pnlm-orientation-button-inactive {
     background-position: 0 -156px;
-}
-
-.pnlm-orientation-button-active {
-    background-position: 0 -182px;
 }
 
 .pnlm-fullscreen-toggle-button-inactive {
@@ -313,18 +296,16 @@
     color: #eee;
 }
 
-.pnlm-hotspot-base {
+.pnlm-hotspot {
     position: absolute;
+    height: 26px;
+    width: 26px;
     visibility: hidden;
     cursor: default;
+    border-radius: 13px;
     vertical-align: middle;
     top: 0;
     z-index: 1;
-}
-.pnlm-hotspot {
-    height: 26px;
-    width: 26px;
-    border-radius: 13px;
 }
 .pnlm-hotspot:hover {
     background-color: rgba(255,255,255,0.2);
@@ -345,13 +326,14 @@ div.pnlm-tooltip span {
     text-align: center;
     max-width: 200px;
     padding: 5px 10px;
+    margin-top: -41px;
     margin-left: -220px;
     cursor: default;
 }
 div.pnlm-tooltip:hover span{
     visibility: visible;
 }
-div.pnlm-tooltip:hover span:after {
+div.pnlm-tooltip:hover:after {
     content: '';
     position: absolute;
     width: 0;
@@ -359,9 +341,8 @@ div.pnlm-tooltip:hover span:after {
     border-width: 10px;
     border-style: solid;
     border-color: rgba(0,0,0,0.7) transparent transparent transparent;
-    bottom: -20px;
-    left: -10px;
-    margin: 0 50%;
+    top: -12px;
+    left: 3px;
 }
 
 .pnlm-compass {

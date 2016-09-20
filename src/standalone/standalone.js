@@ -14,31 +14,34 @@ function parseURLParameters() {
         return;
     }
     URL = URL[0].split('&');
-    var configFromURL = {};
+    var json = '{';
     for (var i = 0; i < URL.length; i++) {
         var option = URL[i].split('=')[0];
         var value = URL[i].split('=')[1];
-        if (value == '')
-            continue; // Skip options with empty values in URL config
+        json += '"' + option + '":';
         switch(option) {
             case 'hfov': case 'pitch': case 'yaw': case 'haov': case 'vaov':
-            case 'minHfov': case 'maxHfov': case 'minPitch': case 'maxPitch':
-            case 'minYaw': case 'maxYaw': case 'vOffset': case 'autoRotate':
-                configFromURL[option] = Number(value);
+            case 'vOffset': case 'autoRotate':
+                json += value;
                 break;
             case 'autoLoad': case 'ignoreGPanoXMP':
-                configFromURL[option] = JSON.parse(value);
+                json += JSON.parse(value);
                 break;
             case 'tour':
                 console.log('The `tour` parameter is deprecated and will be removed. Use the `config` parameter instead.')
             case 'author': case 'title': case 'firstScene': case 'fallback':
             case 'preview': case 'panorama': case 'config':
-                configFromURL[option] = decodeURIComponent(value);
+                json += '"' + decodeURIComponent(value) + '"';
                 break;
             default:
                 anError('An invalid configuration parameter was specified: ' + option);
         }
+        if (i < URL.length - 1) {
+            json += ',';
+        }
     }
+    json += '}';
+    var configFromURL = JSON.parse(json);
 
     var request;
 
@@ -62,8 +65,7 @@ function parseURLParameters() {
             var responseMap = JSON.parse(request.responseText);
 
             // Set JSON file location
-            if (responseMap.basePath === undefined)
-                responseMap.basePath = configFromURL.config.substring(0, configFromURL.config.lastIndexOf('/')+1);
+            responseMap.basePath = configFromURL.config.substring(0, configFromURL.config.lastIndexOf('/')+1);
 
             // Merge options
             for (var key in responseMap) {
